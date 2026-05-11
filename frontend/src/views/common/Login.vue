@@ -32,6 +32,10 @@ const props = defineProps({
         },
         required: true
     },
+    startTab: {
+        type: String,
+        default: 'signin'
+    },
 })
 
 const message = useMessage()
@@ -43,7 +47,7 @@ const {
     showAddressCredential, userSettings, addressPassword
 } = useGlobalState()
 
-const tabValue = ref('signin')
+const tabValue = ref(props.startTab || 'signin')
 const credential = ref('')
 const emailName = ref("")
 const emailDomain = ref("")
@@ -267,8 +271,12 @@ onMounted(async () => {
 
                     <div v-else>
                         <n-form-item-row :label="t('credential')" required>
-                            <n-input v-model:value="credential" type="textarea" :autosize="{ minRows: 3 }" />
+                            <n-input v-model:value="credential" type="textarea" :autosize="{ minRows: 3 }"
+                                :placeholder="t('credentialInput')" />
                         </n-form-item-row>
+                        <n-text depth="3" style="font-size: 12px;">
+                            {{ t('credentialHint') }}
+                        </n-text>
                     </div>
 
                     <Turnstile ref="loginTurnstileRef" v-if="openSettings.enableGlobalTurnstileCheck"

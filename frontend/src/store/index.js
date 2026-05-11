@@ -10,7 +10,7 @@ export const useGlobalState = createGlobalState(
         const toggleDark = useToggle(isDark)
         const loading = ref(false);
         const announcement = useLocalStorage('announcement', '');
-        const useSimpleIndex = useLocalStorage('useSimpleIndex', false);
+        const useSimpleIndex = useLocalStorage('useSimpleIndex', true);
         const openSettings = ref({
             fetched: false,
             title: '',

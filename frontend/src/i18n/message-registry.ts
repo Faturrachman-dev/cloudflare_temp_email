@@ -1143,6 +1143,42 @@ export const MESSAGE_REGISTRY = {
     "refreshSuccess": {
       "en": "Mails refreshed successfully",
       "zh": "邮件刷新成功"
+    },
+    "newAddress": {
+      "en": "New",
+      "zh": "新建"
+    },
+    "deleteAddress": {
+      "en": "Delete",
+      "zh": "删除"
+    },
+    "confirmDeleteAddress": {
+      "en": "Are you sure you want to delete this email address? All emails will be lost.",
+      "zh": "确定要删除此邮箱地址吗？所有邮件将丢失。"
+    },
+    "deleteAddressSuccess": {
+      "en": "Address deleted successfully",
+      "zh": "地址删除成功"
+    },
+    "deleteAddressFailed": {
+      "en": "Failed to delete address",
+      "zh": "删除地址失败"
+    },
+    "exitFullMode": {
+      "en": "Full Mode",
+      "zh": "完整模式"
+    },
+    "copyFailed": {
+      "en": "Copy failed",
+      "zh": "复制失败"
+    },
+    "fetchMailsFailed": {
+      "en": "Failed to fetch mails",
+      "zh": "获取邮件失败"
+    },
+    "deleteMailFailed": {
+      "en": "Failed to delete mail",
+      "zh": "删除邮件失败"
     }
   },
   "views.index.TelegramAddress": {
@@ -2525,6 +2561,10 @@ export const MESSAGE_REGISTRY = {
     "randomSubdomainTip": {
       "en": "When enabled, the created address will use a random subdomain. Subdomain addresses are recommended for receiving only.",
       "zh": "启用后，创建出来的地址会自动挂在随机子域名下。子域名地址更建议仅用于收件。"
+    },
+    "credentialHint": {
+      "en": "Paste the JWT credential token saved when you created this address — not the email address itself. If you don't have one, use \"Create New Email\" tab instead.",
+      "zh": "粘贴创建地址时保存的 JWT 凭据令牌 — 不是邮箱地址本身。如果没有凭据，请使用“创建新邮箱”标签页。"
     }
   },
   "views.admin.Webhook": {
