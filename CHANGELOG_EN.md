@@ -24,6 +24,13 @@
 - improve: |Mobile| Make MailBox filter input flex-shrinkable (`max-width` instead of `width`), add `:wrap="true"` to multi-action button bars
 - docs: |Dev Guide| Rewrite `README-dev.md` in English, correcting inaccuracies (Naive UI not Tailwind, pnpm not npm, proper i18n/deploy documentation)
 - deploy: |Pages| Configure custom domain `faturismee.online` for Cloudflare Pages, add Service Binding `BACKEND` to Worker, update `FRONTEND_URL` and enable AI extraction in worker config
+- fix: |i18n| Fix `getRouterPathWithLang` hardcoded locale whitelist that forced `zh` for Indonesian and other non-listed locales — now uses `isSupportedLocale()` + `DEFAULT_LOCALE` fallback
+- feat: |UX| Default to single-page SimpleIndex mode (no tabs) for cleaner MailStore-style experience; power users can switch to Full Mode via link
+- feat: |UX| Refactor SimpleIndex toolbar with 4 emphasized buttons: Copy / Refresh / New / Delete (filled, responsive 2x2 on mobile, 4-col on desktop)
+- feat: |UX| Add New Address modal (opens Login.vue pinned to create tab) and Delete Address with confirmation dialog
+- feat: |UX| Replace single-mail prev/next view with full MailBox paginated list in SimpleIndex
+- fix: |UX| Remove hardcoded Chinese strings in SimpleIndex.vue (`'复制失败'`, `'获取邮件失败'`, `'删除邮件失败'`) — now uses i18n keys
+- improve: |UX| Add credential hint text in Login.vue clarifying that the credential field expects a JWT token, not an email address
 
 ## v1.9.0(main)
 

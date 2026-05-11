@@ -24,6 +24,13 @@
 - improve: |Mobile| MailBox 筛选输入框改为弹性收缩（`max-width` 替代 `width`），多操作按钮栏添加 `:wrap="true"`
 - docs: |开发指南| 将 `README-dev.md` 重写为英文，修正不准确内容（Naive UI 而非 Tailwind、pnpm 而非 npm、正确的 i18n/部署文档）
 - deploy: |Pages| 配置自定义域名 `faturismee.online`，添加 Service Binding `BACKEND` 至 Worker，更新 `FRONTEND_URL` 并启用 AI 提取
+- fix: |i18n| 修复 `getRouterPathWithLang` 硬编码语言白名单导致印尼语等非列表语言被强制跳转至 `zh` — 现使用 `isSupportedLocale()` + `DEFAULT_LOCALE` 回退
+- feat: |UX| 默认启用单页 SimpleIndex 模式（无标签页），提供类似 MailStore 的简洁体验；高级用户可通过链接切换至完整模式
+- feat: |UX| 重构 SimpleIndex 工具栏为 4 个强调按钮：复制 / 刷新 / 新建 / 删除（填充样式，移动端 2x2，桌面端 4 列）
+- feat: |UX| 新增新建地址弹窗（Login.vue 固定至创建标签页）和删除地址确认对话框
+- feat: |UX| SimpleIndex 中替换单封邮件前后翻页视图为完整 MailBox 分页列表
+- fix: |UX| 移除 SimpleIndex.vue 中的硬编码中文字符串（`'复制失败'`、`'获取邮件失败'`、`'删除邮件失败'`）— 改用 i18n 键
+- improve: |UX| Login.vue 添加凭据提示文字，说明该字段期望 JWT 令牌而非邮箱地址
 
 ## v1.9.0(main)
 
