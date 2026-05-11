@@ -74,21 +74,82 @@ Recommended model: `@cf/meta/llama-3.1-8b-instruct-fast`
 
 ---
 
-## Local Development Workflow
+## Build, Run & Deploy
 
-1. **Backend Dev:**
+### Prerequisites
+
+- **Node.js** ≥ 20 (Node 24 recommended for Wrangler 4.90+)
+- **pnpm** (the project uses `pnpm` exclusively — do not use `npm` or `yarn`)
+- **Cloudflare account** with Workers Paid plan (for AI binding and D1)
+- **Wrangler CLI** authenticated (`pnpm wrangler login` in any sub-package)
+
+### Local Development (Hot Reload)
+
+Run the backend and frontend in separate terminals:
+
+**Terminal 1 — Worker API (port 8787):**
 ```bash
 cd worker
-pnpm wrangler dev
+pnpm dev
 ```
 
-2. **Frontend Dev:**
+**Terminal 2 — Frontend HMR (port 5173):**
 ```bash
 cd frontend
 pnpm dev
 ```
 
-3. **Sync:** Make sure `FRONTEND_URL` in `wrangler.toml` points to `http://localhost:5173` during development.
+> **Note:** The frontend dev server proxies API requests to the worker automatically via Vite config. If it doesn't, set `VITE_API_BASE=http://localhost:8787` in `frontend/.env`.
+
+### Frontend-Only Preview (No Backend)
+
+If you just want to verify UI changes without the backend:
+
+```bash
+cd frontend
+pnpm build          # build production bundle
+pnpm preview        # serve dist/ at http://localhost:4173
+```
+
+### Build for Production
+
+The frontend has multiple build modes depending on deployment target:
+
+| Command | Mode | Use Case |
+|---|---|---|
+| `pnpm build` | `prod` | Standalone Worker deployment (API served by same Worker) |
+| `pnpm build:pages` | `pages` | Cloudflare Pages deployment (API proxied via Pages Functions) |
+| `pnpm build:release` | `example` | Demo/release build |
+| `pnpm build:telegram` | `prod` + Telegram | Telegram Mini App build |
+
+### Deploy to Production
+
+The project deploys as **two separate Cloudflare resources**: a Worker (API) and a Pages site (frontend).
+
+**1. Deploy the Worker (Backend API):**
+```bash
+cd worker
+pnpm deploy          # runs: wrangler deploy --minify
+```
+
+**2. Deploy the Frontend (Cloudflare Pages):**
+```bash
+cd frontend
+pnpm build:pages     # build with Pages mode
+pnpm deploy          # runs: wrangler pages deploy ./dist --branch production
+```
+
+Or use the combined shortcut:
+```bash
+cd frontend
+pnpm run deploy      # builds (prod mode) + deploys in one step
+```
+
+> **Important:** The `worker/wrangler.toml` and `pages/wrangler.toml` files are **gitignored** because they contain secrets (JWT_SECRET, ADMIN_PASSWORDS, etc.). Copy from `wrangler.toml.template` and fill in your values. Never commit these files.
+
+### Deploy via GitHub Actions (CI/CD)
+
+The repo includes GitHub Actions workflows. Push to `main` to trigger automatic deployment if workflows are configured. See `.github/workflows/` for details.
 
 ---
 
@@ -100,4 +161,32 @@ pnpm dev
 
 ---
 
-> **Developer Note:** Always run `pnpm build` in the `frontend` folder after UI modifications, then deploy from the `pages` folder to see changes on the production domain `faturismee.online`.
+## Quick Reference: All pnpm Commands
+
+### Frontend (`cd frontend`)
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start Vite dev server with HMR (port 5173) |
+| `pnpm build` | Production build (standalone mode) |
+| `pnpm build:pages` | Production build (Pages mode) |
+| `pnpm preview` | Serve last build at localhost:4173 |
+| `pnpm deploy` | Build + deploy to Cloudflare Pages (production) |
+| `pnpm test` | Run Vitest unit tests |
+
+### Worker (`cd worker`)
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start Wrangler dev server (port 8787) |
+| `pnpm deploy` | Deploy Worker to Cloudflare (production) |
+| `pnpm build` | Dry-run build to `dist/` (no deploy) |
+| `pnpm lint` | Run ESLint |
+
+### Pages (`cd pages`)
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start Pages dev server locally |
+| `pnpm deploy` | Deploy Pages Functions to Cloudflare (production) |
+
+---
+
+> **Production domain:** `faturismee.online` — deployed via Cloudflare Pages + Workers.
