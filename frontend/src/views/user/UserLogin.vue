@@ -240,7 +240,7 @@ onMounted(async () => {
                 </n-button>
             </n-tab-pane>
         </n-tabs>
-        <n-modal v-model:show="showModal" style="max-width: 600px;" preset="card" :title="t('forgotPassword')">
+        <n-modal v-model:show="showModal" style="max-width: min(600px, calc(100vw - 32px));" preset="card" :title="t('forgotPassword')">
             <n-form v-if="userOpenSettings.enable && userOpenSettings.enableMailVerify">
                 <n-form-item-row :label="t('email')" required>
                     <n-input v-model:value="user.email" />

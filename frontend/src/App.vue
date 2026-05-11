@@ -139,6 +139,13 @@ onMounted(async () => {
     --n-font-size: 16px !important;
   }
 }
+
+@media (max-width: 640px) {
+  :where(.n-tabs .n-tabs-nav) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
 </style>
 
 <style scoped>
@@ -147,7 +154,7 @@ onMounted(async () => {
 }
 
 .main {
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
 }
 

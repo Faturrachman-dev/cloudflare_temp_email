@@ -219,7 +219,7 @@ onMounted(async () => {
       </n-tab-pane>
       <n-tab-pane name="adminAccount" :tab="t('adminAccount')">
         <div style="display: flex; justify-content: center; padding: 20px;">
-          <n-card style="width: 600px;">
+          <n-card style="width: min(600px, calc(100vw - 32px));">
             <n-space vertical>
               <n-text strong>{{ t('loginMethod') }}</n-text>
               <n-text>{{ currentLoginMethod }}</n-text>

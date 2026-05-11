@@ -6,6 +6,24 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## v1.9.1(fork)
+
+### Features
+
+- feat: |i18n| 新增印尼语（`id`）本地化，包含完整翻译（约 616 个键），注册至 locale registry（Naive UI `idID`/`dateIdID`），接入消息构建器，并设为默认及回退语言
+- feat: |AI 提取| 在 `wrangler.toml.template` 中启用 AI 邮件提取：`ENABLE_AI_EMAIL_EXTRACT = true`、`AI_EXTRACT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"`、`[ai] binding = "AI"`
+
+### Improvements
+
+- improve: |Mobile| 扩展 `useIsMobile` 断点覆盖 `s`（不仅限于 `xs`），改善平板设备适配
+- improve: |Mobile| 为所有管理端数据表视图（Account、UserManagement、SenderAccess、RoleAddressConfig）添加可滚动 `table-scroll-wrapper`（`overflow-x: auto`），宽表格横向滚动而非溢出视口
+- improve: |Mobile| 移动端分页组件使用紧凑 `simple` 模式与 `size="small"`
+- improve: |Mobile| 固定宽度弹窗和卡片改用 `min(Xpx, calc(100vw - 32px))` 响应式模式（管理端账户卡片、地址管理弹窗、用户地址管理弹窗、忘记密码弹窗）
+- improve: |Mobile| App.vue 主容器从 `height: 100vh` 改为 `min-height: 100vh`，允许小屏幕自然滚动
+- improve: |Mobile| 添加全局 CSS 规则，640px 以下屏幕标签导航栏横向滚动
+- improve: |Mobile| MailBox 筛选输入框改为弹性收缩（`max-width` 替代 `width`），多操作按钮栏添加 `:wrap="true"`
+- docs: |开发指南| 将 `README-dev.md` 重写为英文，修正不准确内容（Naive UI 而非 Tailwind、pnpm 而非 npm、正确的 i18n/部署文档）
+
 ## v1.9.0(main)
 
 ### Features

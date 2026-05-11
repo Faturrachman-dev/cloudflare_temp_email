@@ -6,6 +6,24 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## v1.9.1(fork)
+
+### Features
+
+- feat: |i18n| Add Indonesian (`id`) locale with full translations (~616 keys), register in locale registry with Naive UI `idID`/`dateIdID`, wire into message builder, and set as default and fallback locale
+- feat: |AI Extract| Enable AI email extraction in `wrangler.toml.template` with `ENABLE_AI_EMAIL_EXTRACT = true`, `AI_EXTRACT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"`, and `[ai] binding = "AI"`
+
+### Improvements
+
+- improve: |Mobile| Extend `useIsMobile` breakpoint to cover `s` (not just `xs`) for better tablet support
+- improve: |Mobile| Add scrollable `table-scroll-wrapper` with `overflow-x: auto` to all admin data-table views (Account, UserManagement, SenderAccess, RoleAddressConfig) so wide tables scroll horizontally instead of overflowing the viewport
+- improve: |Mobile| Use compact `simple` pagination with `size="small"` on mobile for all paginated admin views
+- improve: |Mobile| Make fixed-width modals and cards responsive using `min(Xpx, calc(100vw - 32px))` pattern (Admin account card, Address manage modal, User address management modal, Forgot password modal)
+- improve: |Mobile| Change App.vue main container from `height: 100vh` to `min-height: 100vh` to allow natural scrolling on small screens
+- improve: |Mobile| Add global CSS rule for horizontal tab-nav scrolling on screens ≤640px
+- improve: |Mobile| Make MailBox filter input flex-shrinkable (`max-width` instead of `width`), add `:wrap="true"` to multi-action button bars
+- docs: |Dev Guide| Rewrite `README-dev.md` in English, correcting inaccuracies (Naive UI not Tailwind, pnpm not npm, proper i18n/deploy documentation)
+
 ## v1.9.0(main)
 
 ### Features

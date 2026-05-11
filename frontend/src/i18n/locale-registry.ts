@@ -2,12 +2,14 @@ import {
   dateDeDE,
   dateEnUS,
   dateEsAR,
+  dateIdID,
   dateJaJP,
   datePtBR,
   dateZhCN,
   deDE,
   enUS,
   esAR,
+  idID,
   jaJP,
   ptBR,
   zhCN,
@@ -70,6 +72,13 @@ export const LOCALE_REGISTRY = [
     browserMatches: ['de'],
     naive: { locale: deDE, dateLocale: dateDeDE },
     turnstileLocale: 'de',
+  },
+  {
+    locale: 'id',
+    label: 'Bahasa Indonesia',
+    browserMatches: ['id'],
+    naive: { locale: idID, dateLocale: dateIdID },
+    turnstileLocale: 'id',
   },
 ] as const satisfies readonly LocaleRegistryEntry[]
 

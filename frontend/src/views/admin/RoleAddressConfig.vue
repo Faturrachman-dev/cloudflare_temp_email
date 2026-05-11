@@ -115,17 +115,23 @@ onMounted(async () => {
                 </n-button>
             </n-space>
 
-            <n-data-table
-                :columns="columns"
-                :data="tableData"
-                :bordered="false"
-                embedded
-            />
+            <div class="table-scroll-wrapper">
+                <n-data-table
+                    :columns="columns"
+                    :data="tableData"
+                    :bordered="false"
+                    embedded
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.table-scroll-wrapper {
+    overflow-x: auto;
+}
+
 .n-data-table {
     min-width: 600px;
 }

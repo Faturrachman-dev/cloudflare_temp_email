@@ -136,11 +136,11 @@ ENABLE_AUTO_REPLY = false
 # enable gzip compressed email storage in raw_blob column (run db_migration first)
 # ENABLE_MAIL_GZIP = true
 # AI email extraction, automatically extract verification codes, auth links, etc.
-# ENABLE_AI_EMAIL_EXTRACT = true
+ENABLE_AI_EMAIL_EXTRACT = true
 # AI model name, choose from https://developers.cloudflare.com/workers-ai/features/json-mode/#supported-models
 # Recommended JSON Mode model: "@cf/meta/llama-3.1-8b-instruct-fast"
 # Note: "@cf/meta/llama-3.1-8b-instruct" will be deprecated by Cloudflare on 2026-05-30
-# AI_EXTRACT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"
+AI_EXTRACT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"
 # Calling other woker to process email
 # ENABLE_ANOTHER_WORKER = false
 # ANOTHER_WORKER_LIST = """
@@ -162,8 +162,8 @@ database_name = "xxx"
 database_id = "xxx"
 
 # Workers AI binding (required for AI email extraction)
-# [ai]
-# binding = "AI"
+[ai]
+binding = "AI"
 
 # kv config for send email verification code
 # [[kv_namespaces]]

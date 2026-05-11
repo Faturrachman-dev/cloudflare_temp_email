@@ -371,7 +371,7 @@ onBeforeUnmount(() => {
             {{ t('refresh') }}
           </n-button>
           <n-input v-if="showFilterInput" v-model:value="localFilterKeyword"
-            :placeholder="t('keywordQueryTip')" style="width: 200px; display: flex; align-items: center;"
+            :placeholder="t('keywordQueryTip')" style="max-width: 200px; display: flex; align-items: center;"
             clearable />
         </n-space>
       </div>

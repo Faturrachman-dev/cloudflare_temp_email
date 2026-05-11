@@ -4,6 +4,7 @@ import type { MessageKey, MessageNamespace } from './message-registry'
 
 import { deMessages } from './locales/source/de'
 import { esMessages } from './locales/source/es'
+import { idMessages } from './locales/source/id'
 import { jaMessages } from './locales/source/ja'
 import { ptBRMessages } from './locales/source/ptBR'
 
@@ -18,6 +19,7 @@ const additionalLocaleSources: Record<AdditionalLocale, Record<string, string>> 
   'pt-BR': ptBRMessages,
   ja: jaMessages,
   de: deMessages,
+  id: idMessages,
 }
 
 const setNestedValue = (target: LocaleTree, path: string, value: unknown) => {
@@ -70,6 +72,7 @@ export const I18N_MESSAGES: Record<SupportedLocale, LocaleTree> = {
   'pt-BR': buildAdditionalLocaleMessages('pt-BR'),
   ja: buildAdditionalLocaleMessages('ja'),
   de: buildAdditionalLocaleMessages('de'),
+  id: buildAdditionalLocaleMessages('id'),
 }
 
 export const getLocalizedMessage = (

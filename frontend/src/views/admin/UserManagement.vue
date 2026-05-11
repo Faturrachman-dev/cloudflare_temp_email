@@ -7,11 +7,13 @@ import { MenuFilled } from '@vicons/material'
 import { useGlobalState } from '../../store'
 import { api } from '../../api'
 import { hashPassword } from '../../utils';
+import { useIsMobile } from '../../utils/composables'
 
 import UserAddressManagement from './UserAddressManagement.vue'
 
 const { loading, openSettings } = useGlobalState()
 const message = useMessage()
+const isMobile = useIsMobile()
 
 const { t } = useScopedI18n('views.admin.UserManagement')
 const data = ref([])
@@ -347,7 +349,7 @@ onMounted(async () => {
             </template>
         </n-modal>
         <n-modal v-model:show="showUserAddressManagement" preset="card" :title="t('userAddressManagement')"
-            style="width: 720px;">
+            style="width: min(720px, calc(100vw - 32px));">
             <UserAddressManagement :user_id="curUserId" />
         </n-modal>
         <n-input-group>
@@ -357,21 +359,21 @@ onMounted(async () => {
             </n-button>
         </n-input-group>
         <div style="overflow: auto;">
-            <div style="display: inline-block;">
-                <n-pagination v-model:page="page" v-model:page-size="pageSize" :item-count="count"
-                    :page-sizes="[20, 50, 100]" show-size-picker>
-                    <template #prefix="{ itemCount }">
-                        {{ t('itemCount') }}: {{ itemCount }}
-                    </template>
-                    <template #suffix>
-                        <n-button @click="showCreateUser = true" size="small" tertiary type="primary"
-                            style="margin-left: 10px">
-                            {{ t('createUser') }}
-                        </n-button>
-                    </template>
-                </n-pagination>
+            <n-pagination v-model:page="page" v-model:page-size="pageSize" :item-count="count"
+                :page-sizes="[20, 50, 100]" show-size-picker :simple="isMobile" size="small">
+                <template v-if="!isMobile" #prefix="{ itemCount }">
+                    {{ t('itemCount') }}: {{ itemCount }}
+                </template>
+                <template #suffix>
+                    <n-button @click="showCreateUser = true" size="small" tertiary type="primary"
+                        style="margin-left: 10px">
+                        {{ t('createUser') }}
+                    </n-button>
+                </template>
+            </n-pagination>
+            <div class="table-scroll-wrapper">
+                <n-data-table :columns="columns" :data="data" :bordered="false" embedded />
             </div>
-            <n-data-table :columns="columns" :data="data" :bordered="false" embedded />
         </div>
     </div>
 </template>
@@ -380,6 +382,10 @@ onMounted(async () => {
 .n-pagination {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.table-scroll-wrapper {
+    overflow-x: auto;
 }
 
 .n-data-table {
