@@ -23,6 +23,7 @@
 - improve: |Mobile| Add global CSS rule for horizontal tab-nav scrolling on screens ≤640px
 - improve: |Mobile| Make MailBox filter input flex-shrinkable (`max-width` instead of `width`), add `:wrap="true"` to multi-action button bars
 - docs: |Dev Guide| Rewrite `README-dev.md` in English, correcting inaccuracies (Naive UI not Tailwind, pnpm not npm, proper i18n/deploy documentation)
+- deploy: |Pages| Configure custom domain `faturismee.online` for Cloudflare Pages, add Service Binding `BACKEND` to Worker, update `FRONTEND_URL` and enable AI extraction in worker config
 
 ## v1.9.0(main)
 

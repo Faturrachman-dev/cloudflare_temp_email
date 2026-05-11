@@ -23,6 +23,7 @@
 - improve: |Mobile| 添加全局 CSS 规则，640px 以下屏幕标签导航栏横向滚动
 - improve: |Mobile| MailBox 筛选输入框改为弹性收缩（`max-width` 替代 `width`），多操作按钮栏添加 `:wrap="true"`
 - docs: |开发指南| 将 `README-dev.md` 重写为英文，修正不准确内容（Naive UI 而非 Tailwind、pnpm 而非 npm、正确的 i18n/部署文档）
+- deploy: |Pages| 配置自定义域名 `faturismee.online`，添加 Service Binding `BACKEND` 至 Worker，更新 `FRONTEND_URL` 并启用 AI 提取
 
 ## v1.9.0(main)
 
