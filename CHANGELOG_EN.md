@@ -31,6 +31,9 @@
 - feat: |UX| Replace single-mail prev/next view with full MailBox paginated list in SimpleIndex
 - fix: |UX| Remove hardcoded Chinese strings in SimpleIndex.vue (`'复制失败'`, `'获取邮件失败'`, `'删除邮件失败'`) — now uses i18n keys
 - improve: |UX| Add credential hint text in Login.vue clarifying that the credential field expects a JWT token, not an email address
+- config: |Worker| Set `PREFIX = ""` to remove "tmp" prefix from new addresses
+- tooling: |Operator| Add `worker/scripts/gen-jwt.mjs` script to mint JWTs for orphan addresses when the original JWT was lost
+- docs: |Dev Guide| Update `README-dev.md`: correct deploy command (use `pages/` directory), add Address Recovery section
 
 ## v1.9.0(main)
 

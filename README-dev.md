@@ -26,7 +26,7 @@ For manual modifications and responsiveness improvements, focus on these directo
 
 The following key variables in `wrangler.toml` (see `wrangler.toml.template` for the full reference) affect frontend behavior:
 
-- **`PREFIX`**: Default prefix for generated email addresses (e.g. `tmp`).
+- **`PREFIX`**: Prefix prepended to generated email addresses. Set to `""` (empty) to disable — new addresses will be `user@domain` instead of `tmpuser@domain`.
 - **`DEFAULT_DOMAINS`**: Primary domains that appear in the frontend dropdown.
 - **`DOMAINS`**: All domain names the system accepts (superset of `DEFAULT_DOMAINS`).
 - **`FORWARD_ADDRESS_LIST`**: Email list for the dual-route (forwarding) feature.
@@ -134,22 +134,57 @@ pnpm deploy          # runs: wrangler deploy --minify
 
 **2. Deploy the Frontend (Cloudflare Pages):**
 ```bash
+# Build first
 cd frontend
-pnpm build:pages     # build with Pages mode
-pnpm deploy          # runs: wrangler pages deploy ./dist --branch production
+pnpm build:pages
+
+# Deploy from the pages/ directory (this is the correct path for custom domain binding)
+cd ../pages
+npx wrangler pages deploy
 ```
 
-Or use the combined shortcut:
-```bash
-cd frontend
-pnpm run deploy      # builds (prod mode) + deploys in one step
-```
+> **Why `pages/` and not `frontend/`?** The `npx wrangler pages deploy` command run from `pages/` correctly binds to the Cloudflare Pages project and its custom domain. Running from `frontend/` with `--branch production` may upload files but not activate the custom-domain alias.
 
 > **Important:** The `worker/wrangler.toml` and `pages/wrangler.toml` files are **gitignored** because they contain secrets (JWT_SECRET, ADMIN_PASSWORDS, etc.). Copy from `wrangler.toml.template` and fill in your values. Never commit these files.
 
 ### Deploy via GitHub Actions (CI/CD)
 
 The repo includes GitHub Actions workflows. Push to `main` to trigger automatic deployment if workflows are configured. See `.github/workflows/` for details.
+
+---
+
+## Address Recovery (Lost JWT)
+
+When a user loses their JWT credential, they cannot re-access their inbox via the "Masuk" (credential login) tab. Since this is a passwordless temp-email service, the only recovery path is for the **operator** to mint a new JWT locally.
+
+### Step 1: Look up the address ID
+
+```bash
+cd worker
+npx wrangler d1 execute temp-email-db --remote \
+  --command "SELECT id, name FROM address WHERE name LIKE '%sankoi%'"
+```
+
+Example output:
+```
+id  name
+1   tmpsankoi@faturismee.online
+```
+
+### Step 2: Generate the JWT
+
+```bash
+cd worker
+node scripts/gen-jwt.mjs tmpsankoi@faturismee.online 1
+```
+
+This reads `JWT_SECRET` from `wrangler.toml` and prints a signed JWT.
+
+### Step 3: Use the JWT
+
+Copy the printed token and paste it into the **"Kredensial alamat surat"** field on the **Masuk** tab. The inbox will load.
+
+> **Tip:** After logging in, use the "Copy" button to copy the address, and save the JWT somewhere safe (password manager, notes). The JWT is shown only once during address creation.
 
 ---
 

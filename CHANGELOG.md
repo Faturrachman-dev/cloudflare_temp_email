@@ -31,6 +31,9 @@
 - feat: |UX| SimpleIndex 中替换单封邮件前后翻页视图为完整 MailBox 分页列表
 - fix: |UX| 移除 SimpleIndex.vue 中的硬编码中文字符串（`'复制失败'`、`'获取邮件失败'`、`'删除邮件失败'`）— 改用 i18n 键
 - improve: |UX| Login.vue 添加凭据提示文字，说明该字段期望 JWT 令牌而非邮箱地址
+- config: |Worker| 设置 `PREFIX = ""` 移除新地址的 "tmp" 前缀
+- tooling: |运维| 新增 `worker/scripts/gen-jwt.mjs` 脚本，用于为丢失 JWT 的孤儿地址重新签发令牌
+- docs: |开发指南| 更新 `README-dev.md`：修正部署命令（使用 `pages/` 目录），新增地址恢复章节
 
 ## v1.9.0(main)
 
