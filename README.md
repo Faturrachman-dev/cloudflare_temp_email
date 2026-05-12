@@ -1,5 +1,5 @@
 <!-- markdownlint-disable-file MD033 MD045 -->
-# Cloudflare 临时邮箱 - 免费搭建临时邮件服务
+# Cloudflare Temp Email - Free Temporary Email Service
 
 <p align="center">
   <a href="https://temp-mail-docs.awsl.uk" target="_blank">
@@ -28,40 +28,35 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="README.md">中文文档</a> |
-  <a href="README_EN.md">English Document</a>
-</p>
+> This project is for learning and personal use only. Please do not use it for any illegal activities, or you will be responsible for the consequences.
 
-> 本项目仅供学习和个人用途，请勿将其用于任何违法行为，否则后果自负。
+**A fully-featured temporary email service!**
 
-**一个功能完整的临时邮箱服务！**
+- **Completely Free** - Built on Cloudflare's free services with zero cost
+- **High Performance** - Rust WASM email parsing for extremely fast response
+- **Modern UI** - Responsive design with multi-language support and easy operation
+- **Address Password** - Support setting individual passwords for email addresses to enhance security
+- **Agent-friendly** - Built-in mailbox [`skill`](skills/cf-temp-mail-agent-mail/SKILL.md) for AI agents
+- **Mobile admin** - Community client [CloudMail](https://github.com/Lur1N77777/CloudMail) for Android admin and mailbox management
 
-- **完全免费** - 基于 Cloudflare 免费服务构建，零成本运行
-- **高性能** - Rust WASM 邮件解析，响应速度极快
-- **现代化界面** - 响应式设计，支持多语言，操作简便
-- **地址密码** - 支持为邮箱地址设置独立密码，增强安全性
-- **Agent 友好** - 内置邮箱 [`skill`](skills/cf-temp-mail-agent-mail/SKILL.md)，方便 AI agent 使用邮箱
-- **移动端管理** - 社区客户端 [CloudMail](https://github.com/Lur1N77777/CloudMail)，支持 Android 管理后台和邮箱管理
+## Deployment Documentation - Quick Start
 
-## 部署文档 - 快速开始
+[Documentation](https://temp-mail-docs.awsl.uk) | [Github Action Deployment Guide](https://temp-mail-docs.awsl.uk/en/guide/actions/github-action.html)
 
-[部署文档](https://temp-mail-docs.awsl.uk) | [Github Action 部署文档](https://temp-mail-docs.awsl.uk/zh/guide/actions/github-action.html)
-
-<a href="https://temp-mail-docs.awsl.uk/zh/guide/actions/github-action.html">
+<a href="https://temp-mail-docs.awsl.uk/en/guide/actions/github-action.html">
   <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers" height="32">
 </a>
 
-## 更新日志
+## Changelog
 
-查看 [CHANGELOG](CHANGELOG.md) 了解最新更新内容。
+See [CHANGELOG](CHANGELOG.md) for the latest updates.
 
-## 在线体验
+## Live Demo
 
-立即体验 → [https://mail.awsl.uk/](https://mail.awsl.uk/)
+Try it now → [https://mail.awsl.uk/](https://mail.awsl.uk/)
 
 <details>
-<summary>服务状态监控（点击收缩/展开）</summary>
+<summary>Service Status Monitoring (Click to expand/collapse)</summary>
 
 |                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -71,7 +66,7 @@
 </details>
 
 <details>
-<summary>Star History（点击收缩/展开）</summary>
+<summary>Star History (Click to expand/collapse)</summary>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=dreamhunter2333/cloudflare_temp_email&type=Date&theme=dark" />
@@ -82,121 +77,120 @@
 </details>
 
 <details open>
-<summary>目录（点击收缩/展开）</summary>
+<summary>Table of Contents (Click to expand/collapse)</summary>
 
-- [Cloudflare 临时邮箱 - 免费搭建临时邮件服务](#cloudflare-临时邮箱---免费搭建临时邮件服务)
-  - [部署文档 - 快速开始](#部署文档---快速开始)
-  - [更新日志](#更新日志)
-  - [在线体验](#在线体验)
-  - [核心功能](#核心功能)
-    - [邮件处理](#邮件处理)
-    - [用户管理](#用户管理)
-    - [管理功能](#管理功能)
-    - [多语言与界面](#多语言与界面)
-    - [集成与扩展](#集成与扩展)
-  - [技术架构](#技术架构)
-    - [系统架构](#系统架构)
-    - [技术栈](#技术栈)
-    - [主要组件](#主要组件)
-  - [加入社区](#加入社区)
+- [Cloudflare Temp Email - Free Temporary Email Service](#cloudflare-temp-email---free-temporary-email-service)
+  - [Deployment Documentation - Quick Start](#deployment-documentation---quick-start)
+  - [Changelog](#changelog)
+  - [Live Demo](#live-demo)
+  - [Core Features](#core-features)
+    - [Email Processing](#email-processing)
+    - [User Management](#user-management)
+    - [Admin Features](#admin-features)
+    - [Multi-language \& Interface](#multi-language--interface)
+    - [Integration \& Extensions](#integration--extensions)
+  - [Technical Architecture](#technical-architecture)
+    - [System Architecture](#system-architecture)
+    - [Tech Stack](#tech-stack)
+    - [Main Components](#main-components)
+  - [Join the Community](#join-the-community)
 
 </details>
 
-## 核心功能
+## Core Features
 
 <details open>
-<summary>核心功能详情（点击收缩/展开）</summary>
+<summary>Core Features Details (Click to expand/collapse)</summary>
 
-### 邮件处理
+### Email Processing
 
-- [x] 使用 `rust wasm` 解析邮件，解析速度快，几乎所有邮件都能解析，node 的解析模块解析邮件失败的邮件，rust wasm 也能解析成功
-- [x] **AI 邮件识别** - 使用 Cloudflare Workers AI 自动提取邮件中的验证码、认证链接、服务链接等重要信息
-- [x] 支持为指定基础域名创建随机二级域名邮箱地址，更适合收件隔离场景
-- [x] 支持发送邮件，支持 `DKIM` 验证
-- [x] 支持 `SMTP` 和 `Resend` 等多种发送方式 
-- [x] 增加查看 `附件` 功能，支持附件图片显示
-- [x] 支持 S3 附件存储和删除功能
-- [x] 垃圾邮件检测和黑白名单配置
-- [x] 邮件转发功能，支持全局转发地址
+- [x] Use `rust wasm` to parse emails, with fast parsing speed. Almost all emails can be parsed. Even emails that Node.js parsing modules fail to parse can be successfully parsed by rust wasm
+- [x] **AI Email Recognition** - Use Cloudflare Workers AI to automatically extract verification codes, authentication links, service links and other important information from emails
+- [x] Support optional random second-level subdomain mailbox creation for selected base domains
+- [x] Support sending emails with `DKIM` verification
+- [x] Support multiple sending methods such as `SMTP` and `Resend`
+- [x] Add attachment viewing feature with support for displaying attachment images
+- [x] Support S3 attachment storage and deletion
+- [x] Spam detection and blacklist/whitelist configuration
+- [x] Email forwarding feature with global forwarding address support
 
-### 用户管理
+### User Management
 
-- [x] 使用 `凭证` 重新登录之前的邮箱
-- [x] 添加完整的用户注册登录功能，可绑定邮箱地址，绑定后可自动获取邮箱JWT凭证切换不同邮箱
-- [x] 支持 `OAuth2` 第三方登录（Github、Authentik 等）
-- [x] 支持 `Passkey` 无密码登录
-- [x] 用户角色管理，支持多角色域名和前缀配置
-- [x] 用户收件箱查看，支持地址和关键词过滤
+- [x] Use `credentials` to log in to previously used mailboxes
+- [x] Add complete user registration and login functionality. Users can bind email addresses and automatically obtain email JWT credentials to switch between different mailboxes after binding
+- [x] Support `OAuth2` third-party login (Github, Authentik, etc.)
+- [x] Support `Passkey` passwordless login
+- [x] User role management with support for multi-role domain and prefix configuration
+- [x] User inbox viewing with address and keyword filtering support
 
-### 管理功能
+### Admin Features
 
-- [x] 完整的 admin 控制台
-- [x] `admin` 后台创建无前缀邮箱
-- [x] admin 用户管理页面，增加用户地址查看功能
-- [x] 定时清理功能，支持多种清理策略
-- [x] 获取自定义名字的邮箱，`admin` 可配置黑名单
-- [x] 增加访问密码，可作为私人站点
+- [x] Complete admin console
+- [x] Create mailboxes without prefix in `admin` backend
+- [x] Admin user management page with user address viewing feature
+- [x] Scheduled cleanup function with support for multiple cleanup strategies
+- [x] Get mailboxes with custom names, `admin` can configure blacklist
+- [x] Add access password for use as a private site
 
-### 多语言与界面
+### Multi-language & Interface
 
-- [x] 前后台均支持多语言
-- [x] 现代化 UI 设计，支持响应式布局
-- [x] 支持 Google Ads 集成
-- [x] 使用 shadow DOM 防止样式污染
-- [x] 支持 URL JWT 参数自动登录
+- [x] Both frontend and backend support multi-language
+- [x] Modern UI design with responsive layout
+- [x] Google Ads integration support
+- [x] Use shadow DOM to prevent style pollution
+- [x] Support URL JWT parameter auto-login
 
-### 集成与扩展
+### Integration & Extensions
 
-- [x] 完整的 `Telegram Bot` 支持，以及 `Telegram` 推送，Telegram Bot 小程序
-- [x] 添加 `SMTP proxy server`，支持 `SMTP` 发送邮件，`IMAP` 查看邮件
-- [x] Webhook 支持，消息推送集成
-- [x] 支持 `CF Turnstile` 人机验证
-- [x] 限流配置，防止滥用
-- [x] **Agent 友好**：内置 [`cf-temp-mail-agent-mail`](skills/cf-temp-mail-agent-mail/SKILL.md) skill，AI agent 可直接消费邮箱，详见 [文档](vitepress-docs/docs/zh/guide/feature/agent-email.md)
-- [x] 社区移动端管理客户端：[CloudMail](https://github.com/Lur1N77777/CloudMail) 基于 Expo / React Native，面向本项目兼容 API，提供 Android 管理员后台、地址管理、收件/发件/未知邮件、验证码快捷复制、OLED 黑主题和本地分组。
+- [x] Complete `Telegram Bot` support, `Telegram` push notifications, and Telegram Bot mini app
+- [x] Add `SMTP proxy server` supporting `SMTP` for sending emails and `IMAP` for viewing emails
+- [x] Webhook support and message push integration
+- [x] Support `CF Turnstile` CAPTCHA verification
+- [x] Rate limiting configuration to prevent abuse
+- [x] **Agent-friendly**: bundled [`cf-temp-mail-agent-mail`](skills/cf-temp-mail-agent-mail/SKILL.md) skill lets AI agents consume a mailbox directly, see [docs](vitepress-docs/docs/en/guide/feature/agent-email.md)
+- [x] Community mobile admin client: [CloudMail](https://github.com/Lur1N77777/CloudMail) is built with Expo / React Native for this project's compatible API, providing an Android admin console, address management, inbox/sent/unknown mail, quick verification-code copy, OLED black theme, and local grouping.
 
 </details>
 
-## 技术架构
+## Technical Architecture
 
 <details>
-<summary>技术架构详情（点击收缩/展开）</summary>
+<summary>Technical Architecture Details (Click to expand/collapse)</summary>
 
-### 系统架构
+### System Architecture
 
-- **数据库**: Cloudflare D1 作为主数据库
-- **前端部署**: 使用 Cloudflare Pages 部署前端
-- **后端部署**: 使用 Cloudflare Workers 部署后端
-- **邮件转发**: 使用 Cloudflare Email Routing
+- **Database**: Cloudflare D1 as the main database
+- **Frontend Deployment**: Deploy frontend using Cloudflare Pages
+- **Backend Deployment**: Deploy backend using Cloudflare Workers
+- **Email Routing**: Use Cloudflare Email Routing
 
-### 技术栈
+### Tech Stack
 
-- **前端**: Vue 3 + Vite + TypeScript
-- **后端**: TypeScript + Cloudflare Workers
-- **邮件解析**: Rust WASM (mail-parser-wasm)
-- **数据库**: Cloudflare D1 (SQLite)
-- **存储**: Cloudflare KV + R2 (可选 S3)
-- **代理服务**: Python SMTP/IMAP Proxy Server
+- **Frontend**: Vue 3 + Vite + TypeScript
+- **Backend**: TypeScript + Cloudflare Workers
+- **Email Parsing**: Rust WASM (mail-parser-wasm)
+- **Database**: Cloudflare D1 (SQLite)
+- **Storage**: Cloudflare KV + R2 (optional S3)
+- **Proxy Service**: Python SMTP/IMAP Proxy Server
 
-### 主要组件
+### Main Components
 
-- **Worker**: 核心后端服务
-- **Frontend**: Vue 3 用户界面
-- **Mail Parser WASM**: Rust 邮件解析模块
-- **SMTP Proxy Server**: Python 邮件代理服务
-- **Pages Functions**: Cloudflare Pages 中间件
-- **Documentation**: VitePress 文档站点
+- **Worker**: Core backend service
+- **Frontend**: Vue 3 user interface
+- **Mail Parser WASM**: Rust email parsing module
+- **SMTP Proxy Server**: Python email proxy service
+- **Pages Functions**: Cloudflare Pages middleware
+- **Documentation**: VitePress documentation site
 
 </details>
 
-### 提醒
+### Important Notes
 
-- 在Resend添加域名记录时，如果您域名解析服务商正在托管您的3级域名a.b.com，请删除Resend生成的默认name中二级域名前缀b，否则将会添加a.b.b.com，导致验证失败。添加记录后，可通过
+- When adding domain records in Resend, if your DNS provider is hosting your 3rd level domain a.b.com, please remove the 2nd level domain prefix b from the default name generated by Resend, otherwise it will add a.b.b.com, causing verification to fail. After adding the record, you can verify it using:
 ```bash
 nslookup -qt="mx" a.b.com 1.1.1.1
 ```
-进行验证。 
 
-## 加入社区
+## Join the Community
 
 - [Telegram](https://t.me/cloudflare_temp_email)

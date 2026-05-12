@@ -1,8 +1,9 @@
 <script setup>
 import { useScopedI18n } from '@/i18n/app'
 import { useGlobalState } from '../store'
-const { openSettings } = useGlobalState()
+import { Whatsapp } from '@vicons/fa'
 
+const { openSettings } = useGlobalState()
 
 const { t } = useScopedI18n('views.Footer')
 
@@ -12,14 +13,18 @@ const { t } = useScopedI18n('views.Footer')
     <div>
         <n-divider class="footer-divider" />
         <div style="text-align: center; padding: 20px">
-            <n-space justify="center">
+            <div style="margin-bottom: 8px;">
                 <n-text depth="3">
-                    {{ t('copyright') }} © 2023-{{ new Date().getFullYear() }}
+                    <a href="https://wa.me/6285877961552" target="_blank" rel="noopener noreferrer"
+                        style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;">
+                        <n-icon size="18" color="#25D366"><Whatsapp /></n-icon>
+                        Hubungi Admin 085877961552
+                    </a>
                 </n-text>
-                <n-text depth="3">
-                    <div v-html="openSettings.copyright"></div>
-                </n-text>
-            </n-space>
+            </div>
+            <n-text depth="3">
+                © {{ new Date().getFullYear() }} Mirai Tech Store | faturismee.online
+            </n-text>
         </div>
     </div>
 </template>
