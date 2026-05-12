@@ -1179,6 +1179,30 @@ export const MESSAGE_REGISTRY = {
     "deleteMailFailed": {
       "en": "Failed to delete mail",
       "zh": "删除邮件失败"
+    },
+    "loginBtn": {
+      "en": "Login",
+      "zh": "登录"
+    },
+    "loginModalTitle": {
+      "en": "Access Inbox",
+      "zh": "访问收件箱"
+    },
+    "localPartPlaceholder": {
+      "en": "username",
+      "zh": "用户名"
+    },
+    "accessButton": {
+      "en": "Access Inbox",
+      "zh": "访问收件箱"
+    },
+    "loginSuccess": {
+      "en": "Inbox accessed successfully",
+      "zh": "收件箱访问成功"
+    },
+    "loginFailed": {
+      "en": "Failed to access inbox",
+      "zh": "访问收件箱失败"
     }
   },
   "views.index.TelegramAddress": {

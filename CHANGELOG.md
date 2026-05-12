@@ -34,6 +34,10 @@
 - config: |Worker| 设置 `PREFIX = ""` 移除新地址的 "tmp" 前缀
 - tooling: |运维| 新增 `worker/scripts/gen-jwt.mjs` 脚本，用于为丢失 JWT 的孤儿地址重新签发令牌
 - docs: |开发指南| 更新 `README-dev.md`：修正部署命令（使用 `pages/` 目录），新增地址恢复章节
+- feat: |UX| 合并“新建”按钮为“登录”按钮，用户只需输入用户名即可自动创建或访问已有地址
+- feat: |Backend| 新增 `POST /open_api/access_address` 公开端点，按地址名返回 JWT（用于已有地址的访问）
+- feat: |Operator| 5 次点击 Logo 解锁 Operator 模式，输入管理员密码验证，显示凭证弹窗和完整模式入口
+- improve: |UX| 隐藏凭证弹窗（仅 Operator 模式可见），移除普通用户的“完整模式”链接
 
 ## v1.9.0(main)
 

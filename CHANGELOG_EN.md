@@ -34,6 +34,10 @@
 - config: |Worker| Set `PREFIX = ""` to remove "tmp" prefix from new addresses
 - tooling: |Operator| Add `worker/scripts/gen-jwt.mjs` script to mint JWTs for orphan addresses when the original JWT was lost
 - docs: |Dev Guide| Update `README-dev.md`: correct deploy command (use `pages/` directory), add Address Recovery section
+- feat: |UX| Merge "New" button into "Login" — user types just the local-part, auto-creates or accesses existing address
+- feat: |Backend| Add `POST /open_api/access_address` public endpoint that returns JWT for any existing address by name
+- feat: |Operator| 5-click logo gesture unlocks Operator mode via admin password; shows credential popup and Full Mode link
+- improve: |UX| Hide credential popup from end users (only visible in Operator mode), remove Full Mode link for non-operators
 
 ## v1.9.0(main)
 

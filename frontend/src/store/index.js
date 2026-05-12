@@ -140,6 +140,7 @@ export const useGlobalState = createGlobalState(
             get: () => _oauth2ClientIDSession.value || _oauth2ClientIDFallback.value,
             set: (v) => { _oauth2ClientIDSession.value = v; _oauth2ClientIDFallback.value = v; }
         });
+        const operatorMode = useLocalStorage('operatorMode', false);
         const browserFingerprint = ref('');
         return {
             isDark,
@@ -179,6 +180,7 @@ export const useGlobalState = createGlobalState(
             userOauth2SessionClientID,
             useSimpleIndex,
             addressPassword,
+            operatorMode,
             browserFingerprint,
         }
     },

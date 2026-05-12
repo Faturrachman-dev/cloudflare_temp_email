@@ -24,7 +24,8 @@ const notification = useNotification()
 
 const {
     toggleDark, isDark, isTelegram, showAdminPage,
-    showAuth, auth, loading, openSettings, preferredLocale, userSettings
+    showAuth, auth, loading, openSettings, preferredLocale, userSettings,
+    operatorMode
 } = useGlobalState()
 const route = useRoute()
 const router = useRouter()
@@ -213,24 +214,53 @@ useHead({
     ]
 });
 
-const logoClickCount = ref(0);
-const logoClick = async () => {
-    if (route.path.includes("admin")) {
-        logoClickCount.value = 0;
-        return;
+const logoClickCount = ref(0)
+const logoClickTimer = ref(null)
+const showOperatorModal = ref(false)
+const operatorPassword = ref('')
+const operatorLoading = ref(false)
+
+const logoClick = () => {
+    if (operatorMode.value) {
+        logoClickCount.value = 0
+        return
     }
+    // Reset counter if too slow (> 3s between clicks)
+    if (logoClickTimer.value) clearTimeout(logoClickTimer.value)
+    logoClickTimer.value = setTimeout(() => { logoClickCount.value = 0 }, 3000)
+
+    logoClickCount.value++
     if (logoClickCount.value >= 5) {
-        logoClickCount.value = 0;
-        message.info("Change to admin Page");
-        loading.value = true;
-        await router.push(getRouterPathWithLang('/admin', locale.value));
-        loading.value = false;
+        logoClickCount.value = 0
+        showOperatorModal.value = true
     } else {
-        logoClickCount.value++;
+        message.info(`Click ${5 - logoClickCount.value} more times to unlock operator mode`)
     }
-    if (logoClickCount.value > 0) {
-        message.info(`Click ${5 - logoClickCount.value + 1} times to enter the admin page`);
+}
+
+const operatorLogin = async () => {
+    operatorLoading.value = true
+    try {
+        await api.fetch('/open_api/admin_login', {
+            method: 'POST',
+            body: JSON.stringify({
+                password: await hashPassword(operatorPassword.value),
+            })
+        })
+        operatorMode.value = true
+        showOperatorModal.value = false
+        operatorPassword.value = ''
+        message.success('Operator mode unlocked')
+    } catch (error) {
+        message.error(error.message || 'Wrong password')
+    } finally {
+        operatorLoading.value = false
     }
+}
+
+const exitOperatorMode = () => {
+    operatorMode.value = false
+    message.info('Operator mode disabled')
 }
 
 onMounted(async () => {
@@ -244,7 +274,13 @@ onMounted(async () => {
     <div>
         <n-page-header>
             <template #title>
-                <h3>{{ openSettings.title || t('title') }}</h3>
+                <h3>
+                    {{ openSettings.title || t('title') }}
+                    <n-tag v-if="operatorMode" size="small" type="warning" style="margin-left: 8px; vertical-align: middle;"
+                        closable @close="exitOperatorMode">
+                        Operator
+                    </n-tag>
+                </h3>
             </template>
             <template #avatar>
                 <div @click="logoClick">
@@ -311,6 +347,16 @@ onMounted(async () => {
                 </div>
             </n-drawer-content>
         </n-drawer>
+        <n-modal v-model:show="showOperatorModal" preset="dialog" :title="'Enter operator password'"
+            style="width: min(400px, calc(100vw - 32px));">
+            <n-input v-model:value="operatorPassword" type="password" show-password-on="click"
+                placeholder="Operator password" @keyup.enter="operatorLogin" />
+            <template #action>
+                <n-button :loading="operatorLoading" @click="operatorLogin" type="primary">
+                    Unlock
+                </n-button>
+            </template>
+        </n-modal>
         <n-modal v-model:show="showAuth" :closable="false" :closeOnEsc="false" :maskClosable="false" preset="dialog"
             :title="t('accessHeader')">
             <p>{{ t('accessTip') }}</p>

@@ -66,4 +66,31 @@ api.post('/open_api/credential_login', async (c) => {
     return c.json({ success: true })
 })
 
+api.post('/open_api/access_address', async (c) => {
+    const { name, domain, cf_token } = await c.req.json();
+    const msgs = i18n.getMessagesbyContext(c);
+    if (utils.isGlobalTurnstileEnabled(c)) {
+        try {
+            await checkCfTurnstile(c, cf_token);
+        } catch (error) {
+            return c.text(msgs.TurnstileCheckFailedMsg, 400)
+        }
+    }
+    if (!name || !domain) {
+        return c.text(msgs.InvalidAddressMsg, 400)
+    }
+    const fullName = `${name}@${domain}`;
+    const row = await c.env.DB.prepare(
+        `SELECT id, name FROM address WHERE name = ?`
+    ).bind(fullName).first<{ id: number, name: string }>();
+    if (!row) {
+        return c.text(msgs.InvalidAddressMsg, 404)
+    }
+    const jwt = await Jwt.sign(
+        { address: row.name, address_id: row.id },
+        c.env.JWT_SECRET, "HS256"
+    );
+    return c.json({ jwt, address: row.name })
+})
+
 export { api }
